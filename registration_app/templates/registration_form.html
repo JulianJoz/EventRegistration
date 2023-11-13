@@ -1,0 +1,109 @@
+<!-- registration_form.html -->
+
+<style>
+    /* Add spacing between form fields */
+    #registration-form {
+        max-width: 400px; /* Set the maximum width of the form */
+        margin: 0 auto; /* Center the form horizontally */
+        padding: 20px; /* Add padding for better appearance */
+    }
+
+    #registration-form div {
+        margin-bottom: 15px;
+    }
+</style>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Set placeholders for fields
+        var nameInput = $("#id_full_name");
+
+        var emailInput = $("#id_email");
+
+        var phoneInput = $("#id_phone_number");
+
+        var sessionInput = $("#id_event_sessions");
+
+        nameInput.attr("placeholder", "Enter your full name");
+        emailInput.attr("placeholder", "Enter your email address");
+        phoneInput.attr("placeholder", "Enter your phone number");
+        sessionInput.attr("placeholder", "Please type Session 1 or Session 2 or Session 3");
+
+
+        // Remove placeholders when the user starts inputting
+        nameInput.focus(function () {
+            $(this).removeAttr("placeholder");
+        });
+
+        emailInput.focus(function () {
+            $(this).removeAttr("placeholder");
+        });
+
+        phoneInput.focus(function () {
+            $(this).removeAttr("placeholder");
+        });
+
+        sessionInput.focus(function () {
+            $(this).removeAttr("placeholder");
+        });    
+
+        $("#registration-form").submit(function (event) {
+            var fullName = $("#id_full_name").val();
+
+            var email = $("#id_email").val();
+
+            var phoneNumber = $("#id_phone_number").val();
+
+            var eventSessions = $("#id_event_sessions").val();
+
+            if (fullName === '' || email === '' || phoneNumber === '' || eventSessions === '') {
+                alert("All fields are required.");
+                event.preventDefault();
+            }
+
+            // Email format validation
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Invalid email format.");
+                event.preventDefault();
+            }
+
+            // Phone number validation (must have exactly 10 digits)
+            var phoneNumberRegex = /^\d{10}$/;
+            if (!phoneNumberRegex.test(phoneNumber)) {
+                alert("Phone number should have exactly 10 digits.");
+                event.preventDefault();
+            }
+
+           
+        });
+    });
+</script>
+
+<form id="registration-form" method="post" action="{% url 'registration_form' %}">
+    {% csrf_token %}
+    <div>
+        <label for="id_full_name">Full Name:</label>
+        {{ form.full_name }}
+    </div>
+
+    <div>
+        <label for="id_email">Email:</label>
+        {{ form.email }}
+    </div>
+
+    <div>
+        <label for="id_phone_number">Phone Number:</label>
+        {{ form.phone_number }}
+    </div>
+
+    <div>
+        <label for="id_event_sessions">Event Sessions:</label>
+        {{ form.event_sessions }}
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
