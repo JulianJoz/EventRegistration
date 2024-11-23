@@ -24,9 +24,3 @@ essential details and provide a confirmation upon submission.
 
 * Upon submission, display a confirmation page summarizing the provided
 details and a unique registration ID.
-
-#### Server-Side Processing:
-
-* Store the registration details in a server-side file or a database.
-* Implement basic server-side validation.
-
