@@ -1,4 +1,4 @@
-## Assignment: Event Registration Web Form
+## Event Registration Web Form
 
 ### Objective:
 
